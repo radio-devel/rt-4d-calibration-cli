@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 rt-4d-calibration-cli contributors
+"""Clone-local launcher; loads .config relative to this file."""
+
+import os
+from pathlib import Path
+import sys
+
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE / "src"))
+os.environ.setdefault(
+    "RT4D_CALIBRATION_CONFIG",
+    str(HERE / ".config" / "rt4d_oem_v325.yaml"),
+)
+os.environ.setdefault("RT4D_CALIBRATION_CACHE", str(HERE / ".cache"))
+
+from rt4d_calibration_cli.cli import main  # noqa: E402
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
